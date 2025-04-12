@@ -10,12 +10,17 @@
   <div id="hud">
     <div id="score">Score: 0</div>
     <div id="lives">❤️ x3</div>
+    <button id="muteButton">🔊</button>
   </div>
   <canvas id="gameCanvas"></canvas>
   <div id="gameOverScreen">
     <h1>Game Over</h1>
     <button id="restartButton">Restart</button>
   </div>
+  <audio id="bgMusic" loop autoplay src="https://cdn.pixabay.com/audio/2022/03/23/audio_5410d32039.mp3"></audio>
+  <audio id="shootSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_655b5aa5f8.mp3"></audio>
+  <audio id="explodeSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_1b2e1f9d7a.mp3"></audio>
+  <audio id="gameOverSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_3aa299bfdb.mp3"></audio>
   <script src="script.js"></script>
 </body>
 </html>
