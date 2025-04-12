@@ -1,18 +1,34 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 const scoreDisplay = document.getElementById("score");
+const livesDisplay = document.getElementById("lives");
+const gameOverScreen = document.getElementById("gameOverScreen");
+const restartButton = document.getElementById("restartButton");
 
 canvas.width = 800;
 canvas.height = 600;
 
-let player = { x: 400, y: 500, size: 30, speed: 6 };
-let bullets = [];
-let enemies = [];
-let score = 0;
+let player, bullets, enemies, score, lives, gameOver;
+
+function initGame() {
+  player = { x: 400, y: 500, size: 30, speed: 6 };
+  bullets = [];
+  enemies = [];
+  score = 0;
+  lives = 3;
+  gameOver = false;
+  scoreDisplay.textContent = "Score: 0";
+  livesDisplay.textContent = "❤️ x3";
+  gameOverScreen.style.display = "none";
+}
 
 document.addEventListener("keydown", handleKeyDown);
+restartButton.addEventListener("click", () => {
+  initGame();
+});
 
 function handleKeyDown(e) {
+  if (gameOver) return;
   if (e.key === "ArrowLeft" || e.key.toLowerCase() === "a") {
     player.x -= player.speed;
   } else if (e.key === "ArrowRight" || e.key.toLowerCase() === "d") {
@@ -32,6 +48,7 @@ function shoot() {
 }
 
 function spawnEnemy() {
+  if (gameOver) return;
   const size = 30;
   const x = Math.random() * (canvas.width - size);
   enemies.push({
@@ -65,7 +82,11 @@ function drawEnemies() {
     ctx.beginPath();
     ctx.arc(e.x + e.size / 2, e.y + e.size / 2, e.size / 2, 0, Math.PI * 2);
     ctx.fill();
-    if (e.y > canvas.height) enemies.splice(index, 1);
+
+    if (e.y > canvas.height) {
+      enemies.splice(index, 1);
+      loseLife();
+    }
   });
 }
 
@@ -87,14 +108,26 @@ function checkCollisions() {
   });
 }
 
+function loseLife() {
+  lives--;
+  livesDisplay.textContent = `❤️ x${lives}`;
+  if (lives <= 0) {
+    gameOver = true;
+    gameOverScreen.style.display = "flex";
+  }
+}
+
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawPlayer();
-  drawBullets();
-  drawEnemies();
-  checkCollisions();
+  if (!gameOver) {
+    drawPlayer();
+    drawBullets();
+    drawEnemies();
+    checkCollisions();
+  }
   requestAnimationFrame(gameLoop);
 }
 
+initGame();
 setInterval(spawnEnemy, 1000);
 gameLoop();
