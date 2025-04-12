@@ -1,21 +1,25 @@
 body {
   margin: 0;
   overflow: hidden;
-  background-color: #000;
-  color: white;
-  font-family: sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+  background-size: cover;
 }
 
 canvas {
   display: block;
   margin: 0 auto;
-  background-color: #111;
-  border: 2px solid #fff;
+  border: 3px solid #fff;
+  box-shadow: 0 0 20px #000;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 #score {
   position: absolute;
   top: 10px;
   left: 10px;
-  font-size: 24px;
+  color: white;
+  font-size: 28px;
+  text-shadow: 1px 1px 3px black;
+  z-index: 10;
 }
