@@ -17,12 +17,12 @@ function movePlayer(e) {
   if (e.key === "ArrowRight") player.x += player.speed;
 }
 
-function shoot(e) {
+function shoot() {
   bullets.push({
-    x: player.x,
+    x: player.x + player.size / 2,
     y: player.y,
-    dx: Math.cos(0) * 10,
-    dy: Math.sin(0) * 10,
+    dx: 0,
+    dy: -10,
     size: 5,
   });
 }
